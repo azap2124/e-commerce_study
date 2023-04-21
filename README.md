@@ -34,7 +34,7 @@ ORDER BY total_revenue DESC;
 
 -- Average rating counts
 SELECT AVG(rating_count)
-FROM wish. dbo.summer_products
+FROM wish. dbo.summer_products;
 
 
 -- Top 20 worst rated products
