@@ -1,4 +1,8 @@
 # E-Commerce-Study
+
+### NOTES: 
+-- Had a really hard time importing files into SQL Server. My solution was to save the files as a Excel Workbook rather than a .csv and it seems to be working. 
+
 #### Possible questions to answer: 
 1. What are the most popular products based on units sold? How do they compare in terms of price and rating?
 2. Do products with ad boosts have higher sales compared to those without ad boosts?
