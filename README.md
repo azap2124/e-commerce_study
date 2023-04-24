@@ -1,5 +1,26 @@
 # E-Commerce-Study
+## Proposed Outline: 
+Introduction
+- Brief introduction to the project
+- Questions to answer
+- Data source
+- Tools used
 
+Cleaning the Data:
+- I used excel to remove duplicates
+- Changed all columns to snake_case for consistency
+- Changed data types when importing data to SQL Server
+
+Data Exploration: 
+- Answer questions proposed
+
+Interpret the Results:
+- Analyze the results and identify any correlations or causations
+- Draw conclusions from the data to answer the initial questions
+
+Communicate the Results:
+- Visualize data
+- Tableau? Should we create a presentation? 
 
 # Analysis notes for us:
 
@@ -12,8 +33,7 @@
 3. What are the most common product tags and how do they relate to sales?
 4. Is there a relationship between merchant rating and product quality as indicated by the badges?
 5. Do companies that sell to many countries have higher revenues? 
-6. What factors are associated with higher ratings, such as product color, size, or merchant rating?
-7. Is there a relationship between merchant profile pictures and sales?
+6. Is there a relationship between merchant profile pictures and sales?
 
 ## CODES:
 ### What are the most popular products based on units sold? How do they compare in terms of price and rating?
@@ -71,7 +91,7 @@ FROM wish. dbo.summer_products
 WHERE title_orig IS NOT NULL
 ORDER BY units_sold DESC
 )
-AS avg_top_rated_products
+AS avg_top_rated_products;
 
 -- Average rating for worst rated products
 SELECT AVG(rating) AS avg_worst_rated_products
@@ -88,7 +108,7 @@ FROM wish. dbo.summer_products
 WHERE title_orig IS NOT NULL AND rating_count >= 800
 ORDER BY rating ASC
 )
-AS avg_worst_rated_products
+AS avg_worst_rated_products;
 ```
 ### Do products with ad boosts have higher sales compared to those without ad boosts?
 * There's no direct correlation at least with the data we have available
@@ -105,7 +125,7 @@ SELECT
 FROM wish. dbo.summer_products
 WHERE title_orig IS NOT NULL AND uses_ad_boosts = 1
 ) 
-AS avg_revenue_ads
+AS avg_revenue_ads;
 
 -- Average revenue for products that don't use ads
 SELECT ROUND(AVG(total_revenue),2)
@@ -117,7 +137,7 @@ SELECT
 FROM wish. dbo.summer_products
 WHERE title_orig IS NOT NULL AND uses_ad_boosts = 0
 ) 
-AS avg_revenue_no_ads
+AS avg_revenue_no_ads;
 ```
 ### What are the most common product tags and how do they relate to sales?
 Top 10 used tags by revenue: 
@@ -171,17 +191,17 @@ ORDER BY merchant_rating DESC;
 -- Merchant rating for badge non-holders
 SELECT merchant_rating, badges_count
 FROM wish.dbo.summer_products
-WHERE badges_count = 0
+WHERE badges_count = 0;
 
 -- Average rating for mechants with at least one badge
 SELECT AVG(merchant_rating) AS avg_rating
 FROM wish.dbo.summer_products
-WHERE badges_count >= 1
+WHERE badges_count >= 1;
 
 -- Average rating for badge non-holders
 SELECT AVG(merchant_rating) AS avg_rating
 FROM wish.dbo.summer_products
-WHERE badges_count = 0 
+WHERE badges_count = 0;
 
 -- Mechants with the product quality badge
 SELECT merchant_rating,
@@ -193,12 +213,12 @@ ORDER BY merchant_rating DESC;
 -- Average rating for merchants with the product quality badge
 SELECT AVG(merchant_rating) AS avg_rating
 FROM wish.dbo.summer_products
-WHERE badge_product_quality >= 1
+WHERE badge_product_quality >= 1;
 
 -- Average rating for merchants that DO NOT hold product quality badge
 SELECT AVG(merchant_rating) AS avg_rating
 FROM wish.dbo.summer_products
-WHERE badge_product_quality = 0  
+WHERE badge_product_quality = 0;  
 ```
 ###  Do companies that sell to many countries have higher revenues? 
 * Average number of countries that products are shipped to: 40
@@ -212,7 +232,7 @@ WHERE badge_product_quality = 0
 -- Average of countries_shipped_to
 -- Calculates the average of how many countries are shipped to per product
 SELECT AVG(countries_shipped_to) AS average_countries_shipped
-FROM wish.dbo.summer_products
+FROM wish.dbo.summer_products;
 
 
 -- Count of products that ship to less than 29 countries 
@@ -229,7 +249,7 @@ countries_shipped_to,
 FROM wish.dbo.summer_products
 )
 AS low_average
-WHERE countries_level = 'low'
+WHERE countries_level = 'low';
 
 -- Count of products that ship to more than 61 countries 
 SELECT COUNT(countries_shipped_to) AS high_countries
@@ -245,7 +265,7 @@ countries_shipped_to,
 FROM wish.dbo.summer_products
 )
 AS low_average
-WHERE countries_level = 'high'
+WHERE countries_level = 'high';
 
 
 -- Average revenue for products that ship to less than 29 countries 
@@ -262,7 +282,7 @@ countries_shipped_to,
 FROM wish.dbo.summer_products
 )
 AS low_average
-WHERE countries_level = 'low'
+WHERE countries_level = 'low';
 
 -- Average revenue for products that ship to more than 61 countries 
 SELECT ROUND(AVG(total_revenue),2) AS avg_revenue_high 
@@ -278,7 +298,7 @@ countries_shipped_to,
 FROM wish.dbo.summer_products
 )
 AS high_average
-WHERE countries_level = 'high'
+WHERE countries_level = 'high';
 
 -- Average revenue for products that ship to between 30 and 60 countries 
 SELECT ROUND(AVG(total_revenue),2) AS avg_revenue_medium
@@ -294,8 +314,22 @@ countries_shipped_to,
 FROM wish.dbo.summer_products
 )
 AS medium_average
-WHERE countries_level = 'medium'
+WHERE countries_level = 'medium';
 ```
+### Is there a relationship between merchant profile pictures and sales?
+* There's a significant difference between products where merchants have profile pictures to those who don't
+* Products where merchants have a profile pictures sold a lot more units than those who don't have a profile picture
+* Has profile picture sold on average: 7,617 units 
+* Does not have a profile picture sold on average: 3,824 units
+```
+SELECT AVG(units_sold) AS avg_units_sold
+FROM wish.dbo.summer_products
+WHERE merchant_has_profile_picture = 1;
+
+SELECT AVG(units_sold) AS avg_units_sold
+FROM wish.dbo.summer_products
+WHERE merchant_has_profile_picture = 0;
+``` 
 
 
 
