@@ -11,7 +11,7 @@
 2. Do products with ad boosts have higher sales compared to those without ad boosts?
 3. What are the most common product tags and how do they relate to sales?
 4. Is there a relationship between merchant rating and product quality as indicated by the badges?
-5. What are the most common countries where products are shipped to?
+5. Do companies that sell to many countries have higher revenues? 
 6. What factors are associated with higher ratings, such as product color, size, or merchant rating?
 7. Is there a relationship between merchant profile pictures and sales?
 
@@ -200,6 +200,103 @@ SELECT AVG(merchant_rating) AS avg_rating
 FROM wish.dbo.summer_products
 WHERE badge_product_quality = 0  
 ```
+###  Do companies that sell to many countries have higher revenues? 
+* Average number of countries that products are shipped to: 40
+* Products that ship to less than 29 countries: 329
+* Products that ship to more than 61 countries: 98
+* Average revenue for products that ship to less than 29 countries: $40,592.47
+* Average revenue for products that ship to more than 61 countries: $78,144.74
+* Average revenue for products that ship to between 30 and 60 countries: $128,272.41
+* There's a significant difference of revenues between products that ship to less than 29 countries and products that ship to more than 61 countries. 
+```
+-- Average of countries_shipped_to
+-- Calculates the average of how many countries are shipped to per product
+SELECT AVG(countries_shipped_to) AS average_countries_shipped
+FROM wish.dbo.summer_products
+
+
+-- Count of products that ship to less than 29 countries 
+SELECT COUNT(countries_shipped_to) AS low_countries
+FROM
+(
+SELECT (units_sold * retail_price) AS total_revenue,
+countries_shipped_to,
+	CASE
+		WHEN (countries_shipped_to) < 29 THEN 'low'
+		WHEN (countries_shipped_to) BETWEEN 30 AND 60 THEN 'medium'
+		WHEN (countries_shipped_to) > 61 THEN 'high'
+	END countries_level
+FROM wish.dbo.summer_products
+)
+AS low_average
+WHERE countries_level = 'low'
+
+-- Count of products that ship to more than 61 countries 
+SELECT COUNT(countries_shipped_to) AS high_countries
+FROM
+(
+SELECT (units_sold * retail_price) AS total_revenue,
+countries_shipped_to,
+	CASE
+		WHEN (countries_shipped_to) < 29 THEN 'low'
+		WHEN (countries_shipped_to) BETWEEN 30 AND 60 THEN 'medium'
+		WHEN (countries_shipped_to) > 61 THEN 'high'
+	END countries_level
+FROM wish.dbo.summer_products
+)
+AS low_average
+WHERE countries_level = 'high'
+
+
+-- Average revenue for products that ship to less than 29 countries 
+SELECT ROUND(AVG(total_revenue),2) AS avg_revenue_low 
+FROM
+(
+SELECT (units_sold * retail_price) AS total_revenue,
+countries_shipped_to,
+	CASE
+		WHEN (countries_shipped_to) < 29 THEN 'low'
+		WHEN (countries_shipped_to) BETWEEN 30 AND 60 THEN 'medium'
+		WHEN (countries_shipped_to) > 61 THEN 'high'
+	END countries_level
+FROM wish.dbo.summer_products
+)
+AS low_average
+WHERE countries_level = 'low'
+
+-- Average revenue for products that ship to more than 61 countries 
+SELECT ROUND(AVG(total_revenue),2) AS avg_revenue_high 
+FROM
+(
+SELECT (units_sold * retail_price) AS total_revenue,
+countries_shipped_to,
+	CASE
+		WHEN (countries_shipped_to) < 29 THEN 'low'
+		WHEN (countries_shipped_to) BETWEEN 30 AND 60 THEN 'medium'
+		WHEN (countries_shipped_to) > 61 THEN 'high'
+	END countries_level
+FROM wish.dbo.summer_products
+)
+AS high_average
+WHERE countries_level = 'high'
+
+-- Average revenue for products that ship to between 30 and 60 countries 
+SELECT ROUND(AVG(total_revenue),2) AS avg_revenue_medium
+FROM
+(
+SELECT (units_sold * retail_price) AS total_revenue,
+countries_shipped_to,
+	CASE
+		WHEN (countries_shipped_to) < 29 THEN 'low'
+		WHEN (countries_shipped_to) BETWEEN 30 AND 60 THEN 'medium'
+		WHEN (countries_shipped_to) > 61 THEN 'high'
+	END countries_level
+FROM wish.dbo.summer_products
+)
+AS medium_average
+WHERE countries_level = 'medium'
+```
+
 
 
 
