@@ -1,4 +1,5 @@
 # E-Commerce-Study
+Tableau Dashboard: https://public.tableau.com/app/profile/angel.zapata2615/viz/E-CommerceDashboard_16827981312070/Dashboard1?publish=yes
 ## Proposed Outline: 
 Introduction
 - Brief introduction to the project
