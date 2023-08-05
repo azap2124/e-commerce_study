@@ -1,11 +1,9 @@
 # E-Commerce-Study
 Tableau Dashboard: https://public.tableau.com/app/profile/angel.zapata2615/viz/E-CommerceDashboard_16827981312070/Dashboard1?publish=yes
-## Proposed Outline: 
-Introduction
-- Brief introduction to the project
-- Questions to answer
-- Data source
-- Tools used
+## Introduction: Exploring Product Sales and Merchant Metrics
+In the dynamic world of e-commerce, businesses thrive on understanding consumer behavior, product trends, and merchant performance to stay ahead in a competitive market. To shed light on these critical aspects, this data analysis project embarks on an exploration of a rich dataset. Our main objective is to tackle questions that explore different dimensions of product sales and merchant-related metrics.
+
+In this data analysis project, we explore women's shopping preferences on the Wish platform. Our objective is to analyze the dataset to uncover valuable insights, shedding light on the e-commerce environment. Through an examination of product popularity, ad's impacts on sales, item's tags and sales relationship, and merchant ratings, we aim to provide a thorough understanding of the factors influencing product performance and merchant success. Additionally, we will investigate the potential correlation between companies selling to multiple countries and higher revenues. We will be using data analysis techniques to offer a data-driven perspective on women's online shopping trends.
 
 Cleaning the Data:
 - I used excel to remove duplicates
