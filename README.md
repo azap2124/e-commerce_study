@@ -1,32 +1,11 @@
 # E-Commerce-Study
-Tableau Dashboard: https://public.tableau.com/app/profile/angel.zapata2615/viz/E-CommerceDashboard_16827981312070/Dashboard1?publish=yes
+
 ## Introduction: Exploring Product Sales and Merchant Metrics
 In the dynamic world of e-commerce, businesses thrive on understanding consumer behavior, product trends, and merchant performance to stay ahead in a competitive market. To shed light on these critical aspects, this data analysis project embarks on an exploration of a rich dataset. Our main objective is to tackle questions that explore different dimensions of product sales and merchant-related metrics.
 
 In this data analysis project, we explore women's shopping preferences on the Wish platform. Our objective is to analyze the dataset to uncover valuable insights, shedding light on the e-commerce environment. Through an examination of product popularity, ad's impacts on sales, item's tags and sales relationship, and merchant ratings, we aim to provide a thorough understanding of the factors influencing product performance and merchant success. Additionally, we will investigate the potential correlation between companies selling to multiple countries and higher revenues. We will be using data analysis techniques to offer a data-driven perspective on women's online shopping trends.
 
-Cleaning the Data:
-- I used excel to remove duplicates
-- Changed all columns to snake_case for consistency
-- Changed data types when importing data to SQL Server
-
-Data Exploration: 
-- Answer questions proposed
-
-Interpret the Results:
-- Analyze the results and identify any correlations or causations
-- Draw conclusions from the data to answer the initial questions
-
-Communicate the Results:
-- Visualize data
-- Tableau? Should we create a presentation? 
-
-# Analysis notes for us:
-
-### NOTES: 
--- Had a really hard time importing files into SQL Server. My solution was to save the files as a Excel Workbook rather than a .csv and it seems to be working. 
-
-#### Possible questions to answer: 
+We aim to answer the following questions: 
 1. What are the most popular products based on units sold? How do they compare in terms of price and rating?
 2. Do products with ad boosts have higher sales compared to those without ad boosts?
 3. What are the most common product tags and how do they relate to sales?
@@ -34,6 +13,18 @@ Communicate the Results:
 5. Do companies that sell to many countries have higher revenues? 
 6. Is there a relationship between merchant profile pictures and sales?
 
+## Preparing our data
+The dataset I used can be found [here](https://data.world/jfreex/summer-products-and-sales-performance-in-e-commerce-on-wish). This data comes from the Wish platform. It incorporates data gathered from 2020 until the present moment and it was last updated on June 5th 2023. 
+
+I will be using Microsoft SQL Server Management Studio to analyze the data.
+
+## Processing
+#### Cleaning the Data
+* Used Microsoft Excel to remove duplicates in the data, streamlining the dataset and ensuring that each record is unique.
+* For consistency, I converted all columns to the snake_case naming convention.
+* Converted data types when importing data to SQL Server to it's corresponding data types in the database schema. This ensures the data is accurately stored in the database, allowing for efficient querying.
+* Removed columns that were irrelevant to this analysis, streamlining the dataset further and focusing only on the essential variables pertinent to our research objectives. 
+  
 ## CODES:
 ### What are the most popular products based on units sold? How do they compare in terms of price and rating?
 * Top 20 units by units sold: shows top 20 products with highest units sold 
@@ -329,7 +320,7 @@ SELECT AVG(units_sold) AS avg_units_sold
 FROM wish.dbo.summer_products
 WHERE merchant_has_profile_picture = 0;
 ``` 
-
+Tableau Dashboard: https://public.tableau.com/app/profile/angel.zapata2615/viz/E-CommerceDashboard_16827981312070/Dashboard1?publish=yes
 
 
 
