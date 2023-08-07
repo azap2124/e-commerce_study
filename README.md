@@ -16,6 +16,8 @@ We aim to answer the following questions:
 ## Preparing our data
 The dataset I used can be found [here](https://data.world/jfreex/summer-products-and-sales-performance-in-e-commerce-on-wish). This data comes from the Wish platform. It incorporates data gathered from 2020 until the present moment and it was last updated on June 5th 2023. 
 
+This data covers information on various product attributes in the database. It includes details such as the original title of the product, its price, retail price, units sold, ad boosts usage, ratings, and rating counts. The dataset also contains information on badges associated with each product, product tags, color, size variation, countries shipped to, origin country, merchant rating count, merchant rating, whether the merchant has a profile picture, and unique product IDs. With this comprehensive dataset, we can gain valuable insights into product trends, merchant performance, and customer preferences in the online marketplace.
+
 I will be using Microsoft SQL Server Management Studio to analyze the data.
 
 ## Processing
@@ -25,7 +27,7 @@ I will be using Microsoft SQL Server Management Studio to analyze the data.
 * Converted data types when importing data to SQL Server to it's corresponding data types in the database schema. This ensures the data is accurately stored in the database, allowing for efficient querying.
 * Removed columns that were irrelevant to this analysis, streamlining the dataset further and focusing only on the essential variables pertinent to our research objectives. 
   
-## CODES:
+## Analysis
 ### What are the most popular products based on units sold? How do they compare in terms of price and rating?
 * Top 20 units by units sold: shows top 20 products with highest units sold 
 * Average rating counts: to calculate average rating and be able to compare products bases on fair rating counts  
