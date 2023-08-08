@@ -14,7 +14,7 @@ We aim to answer the following questions:
 6. Is there a relationship between merchant profile pictures and sales?
 
 ## Preparing our data
-The dataset I used can be found [here](https://data.world/jfreex/summer-products-and-sales-performance-in-e-commerce-on-wish). This data comes from the Wish platform. It incorporates data gathered from 2020 until the present moment and it was last updated on June 5th 2023. 
+The dataset I used can be found [here](https://data.world/jfreex/summer-products-and-sales-performance-in-e-commerce-on-wish). This data comes from the Wish platform. It incorporates data gathered from 2020. 
 
 This data covers information on various product attributes in the database. It includes details such as the original title of the product, its price, retail price, units sold, ad boosts usage, ratings, and rating counts. The dataset also contains information on badges associated with each product, product tags, color, size variation, countries shipped to, origin country, merchant rating count, merchant rating, whether the merchant has a profile picture, and unique product IDs. With this comprehensive dataset, we can gain valuable insights into product trends, merchant performance, and customer preferences in the online marketplace.
 
@@ -29,32 +29,55 @@ I will be using Microsoft SQL Server Management Studio to analyze the data.
   
 ## Analysis
 ### What are the most popular products based on units sold? How do they compare in terms of price and rating?
-* Top 20 units by units sold: shows top 20 products with highest units sold 
-* Average rating counts: to calculate average rating and be able to compare products bases on fair rating counts  
-* Top 20 worst rated products: products with at least 800 reviews and rated the worst  
+The following code retrieves the top 10 products from the "summer_products" table in the "wish" database based on the highest number of units sold. The products are then sorted in descending order based on the number of units sold, presenting the most popular products with their corresponding ratings and revenue generated. Here are the results along with their corresponding revenues: 
+1. Sleeveless Lace Crop Tops - $2,500,000
+2. Summer Stranger Things Tracksuit 2 Piece Outfit - $4,800,000
+3. ZANZEA Strand Retro Longtop Kleid Kaftan Dress - $700,000
+4. Beachwear Spaghetti Strap Jumpsuit Rompers - $3,300,000
+5. Summer Bandage Cut Out Crop Top - $2,200,000
+6. Summer V-Neck Loose Jumpsuit - $1,900,000
+7. Loose Lace Blouse with Bat Sleeves - $300,000
+8. Beach Casual Striped T-shirt Mini Dress - $4,050,000
+9. Plus Size Summer V Neck Floral Printed Dresses - $300,000
+10. Summer LOVE Printed Sleeveless Tank Top T-Shirt - $250,000
 ```
--- Top 20 units by revenue
+-- Top 10 units by revenue
 -- Shows highest units sold and their ratings 
-SELECT TOP 20
+SELECT TOP 10
 	title_orig,
 	units_sold,
 	retail_price,
 	(units_sold*retail_price) AS total_revenue,
-	rating
+	rating,
+	rating_count
 FROM wish. dbo.summer_products
 WHERE title_orig IS NOT NULL
 ORDER BY units_sold DESC;
+```
 
-
--- Average rating counts
+Next, I aimed to examine the products in terms of their rating counts and how they compared to each other. For a balanced comparison, I found the average rating count across all products. This allowed me to fairly compare the products based on consistent rating counts. The average rating count for all product is **897 reviews**. 
+```
+-- Average rating count
 -- Shows average rating count for all the products 
-SELECT AVG(rating_count)
+SELECT AVG(rating_count) AS avg_rating_count
 FROM wish. dbo.summer_products;
+```
 
-
--- Top 20 worst rated products
+Next, I was curious to find the top 10 worst rated products. These products have at least 800 reviews and have the lowest rating. The products and their ratings are: 
+1. Plus Size Summer Cross Bandage Loose Dress 
+2. Summer Sleepwear Lace Night Dress
+3. Plus Size Summer Sleeveless Low Cut Tank Top 
+4. Summer Tie Dye Printed Two Piece Set
+5. Plus Size Loose V neck long sleeve Floral print dress
+6. Summer V-neck Short Sleeve Dress
+7. Summer Beachwear V-neck Sleeveless Boho Mini Dress
+8. Summer Bikini Set High waist Bathing Suit
+9. Summer Loose V Neck Tops Ladies Mesh Stitching 3/4 Sleeve Casual Holiday Blouse Shirt Female Blusas Tunic Shirts Tops
+10. One-Piece Push Up Bikini Monokini Swimsuit 
+```
+-- Top 10 worst rated products
 -- Shows worst rated products with a rating count of 800 or more
-SELECT TOP 20
+SELECT TOP 10
 	title_orig,
 	units_sold,
 	retail_price,
