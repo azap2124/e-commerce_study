@@ -55,7 +55,7 @@ WHERE title_orig IS NOT NULL
 ORDER BY units_sold DESC;
 ```
 
-Next, I aimed to examine the products in terms of their rating counts and how they compared to each other. For a balanced comparison, I found the average rating count across all products. This allowed me to fairly compare the products based on consistent rating counts. The average rating count for all product is **897 reviews**. 
+Next, I aimed to analyze the lowest rated products. For a balanced comparison, I found the average rating count across all products. This allowed me to fairly compare the products based on consistent rating counts. The average rating count for all products is **897 reviews**. 
 ```
 -- Average rating count
 -- Shows average rating count for all the products 
@@ -63,17 +63,17 @@ SELECT AVG(rating_count) AS avg_rating_count
 FROM wish. dbo.summer_products;
 ```
 
-Next, I was curious to find the top 10 worst rated products. These products have at least 800 reviews and have the lowest rating. The products and their ratings are: 
-1. Plus Size Summer Cross Bandage Loose Dress 
-2. Summer Sleepwear Lace Night Dress
-3. Plus Size Summer Sleeveless Low Cut Tank Top 
-4. Summer Tie Dye Printed Two Piece Set
-5. Plus Size Loose V neck long sleeve Floral print dress
-6. Summer V-neck Short Sleeve Dress
-7. Summer Beachwear V-neck Sleeveless Boho Mini Dress
-8. Summer Bikini Set High waist Bathing Suit
-9. Summer Loose V Neck Tops Ladies Mesh Stitching 3/4 Sleeve Casual Holiday Blouse Shirt Female Blusas Tunic Shirts Tops
-10. One-Piece Push Up Bikini Monokini Swimsuit 
+Moving forward, I was curious to identify the top 10 products with the lowest ratings. To ensure a fair comparison, these products were required to have a minimum of 800 reviews and bear the lowest ratings. As we can see, three of them cater to plus-size women, while three products feature v-neck styles. These observations suggest potential areas for improvements. The products and their ratings are: 
+1. **Plus Size** Summer Cross Bandage Loose Dress - 2.93
+2. Summer Sleepwear Lace Night Dress - 2.97
+3. **Plus Size** Summer Sleeveless Low Cut Tank Top - 3.01
+4. Summer Tie Dye Printed Two Piece Set - 3.13
+5. **Plus Size** Loose V neck long sleeve Floral print dress - 3.18
+6. Summer **V-neck** Short Sleeve Dress - 3.19
+7. Summer Beachwear **V-neck** Sleeveless Boho Mini Dress - 3.23
+8. Summer Bikini Set High waist Bathing Suit - 3.25
+9. Summer Loose **V Neck** Blouse Shirt - 3.27
+10. One-Piece Push Up Bikini Monokini Swimsuit - 3.28
 ```
 -- Top 10 worst rated products
 -- Shows worst rated products with a rating count of 800 or more
@@ -88,15 +88,16 @@ FROM wish. dbo.summer_products
 WHERE title_orig IS NOT NULL AND rating_count >= 800
 ORDER BY rating ASC;
 ```
-#### Average rating for top and worst rated products:
-* Best: 3.9045
-* Worst: 3.233
+
+The average rating for the best-selling products and the least-selling products are provided below. A difference of 0.153 could be considered minor and might not signify a major difference in perceived quality. This observation makes me wonder how the top-selling products manage to achieve such high sales volumes despite the small difference in average ratings. To obtain these averages, I needed to create subqueries.
+* Best: 3.946
+* Worst: 3.793
 ```
--- Average rating for top 20 products
+-- Average rating for top 10 products
 SELECT AVG (rating) AS avg_top_rated_products
 FROM
 (
-SELECT TOP 20
+SELECT TOP 10
 	title_orig,
 	units_sold,
 	retail_price,
@@ -108,11 +109,11 @@ ORDER BY units_sold DESC
 )
 AS avg_top_rated_products;
 
--- Average rating for worst rated products
-SELECT AVG(rating) AS avg_worst_rated_products
+-- Average rating for least selling products
+SELECT AVG (rating) AS avg_top_rated_products
 FROM
 (
-SELECT TOP 20
+SELECT TOP 10
 	title_orig,
 	units_sold,
 	retail_price,
@@ -121,10 +122,11 @@ SELECT TOP 20
 	rating_count
 FROM wish. dbo.summer_products
 WHERE title_orig IS NOT NULL AND rating_count >= 800
-ORDER BY rating ASC
+ORDER BY units_sold ASC
 )
-AS avg_worst_rated_products;
+AS avg_top_rated_products
 ```
+
 ### Do products with ad boosts have higher sales compared to those without ad boosts?
 * There's no direct correlation at least with the data we have available
 *  Uses ads: $100,852.38
