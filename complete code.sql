@@ -1,3 +1,4 @@
+/*What are the most popular products based on units sold? How do they compare in terms of price and rating?*/
 -- Top 10 units by revenue
 -- Shows highest units sold and their ratings 
 SELECT TOP 10
@@ -10,12 +11,10 @@ FROM wish. dbo.summer_products
 WHERE title_orig IS NOT NULL
 ORDER BY units_sold DESC;
 
-
 -- Average rating counts
 -- Shows average rating count for all the products 
 SELECT AVG(rating_count)
 FROM wish. dbo.summer_products
-
 
 -- Top 10 worst rated products
 -- Shows worst rated products with a rating count of 800 or more
@@ -30,9 +29,8 @@ FROM wish. dbo.summer_products
 WHERE title_orig IS NOT NULL AND rating_count >= 800
 ORDER BY rating ASC;
 
-
 -- Average rating for top 10 products
-SELECT AVG (rating) AS avg_top_rated_products
+SELECT AVG (rating) AS avg_best_selling_products
 FROM
 (
 SELECT TOP 10
@@ -45,11 +43,10 @@ FROM wish. dbo.summer_products
 WHERE title_orig IS NOT NULL
 ORDER BY units_sold DESC
 )
-AS avg_top_rated_products
+AS avg_best_selling_products
 
-
--- Average rating for worst rated products
-SELECT AVG(rating) AS avg_worst_rated_products
+-- Average rating for least selling products
+SELECT AVG (rating) AS avg_least_selling_products
 FROM
 (
 SELECT TOP 10
@@ -61,14 +58,14 @@ SELECT TOP 10
 	rating_count
 FROM wish. dbo.summer_products
 WHERE title_orig IS NOT NULL AND rating_count >= 800
-ORDER BY rating ASC
+ORDER BY units_sold ASC
 )
-AS avg_worst_rated_products
+AS avg_least_selling_products;
 
 
-
+/*Do products with ad boosts have higher sales compared to those without ad boosts?*/
 -- Average revenue for products that use ads
-SELECT ROUND(AVG(total_revenue),2)
+SELECT ROUND(AVG(total_revenue),2) AS uses_ads
 FROM
 (
 SELECT
@@ -80,7 +77,7 @@ WHERE title_orig IS NOT NULL AND uses_ad_boosts = 1
 AS avg_revenue_ads
 
 -- Average revenue for products that don't use ads
-SELECT ROUND(AVG(total_revenue),2)
+SELECT ROUND(AVG(total_revenue),2) AS no_ads
 FROM
 (
 SELECT
@@ -92,16 +89,7 @@ WHERE title_orig IS NOT NULL AND uses_ad_boosts = 0
 AS avg_revenue_no_ads
 
 
-
--- Dividing tags 
--- Divides individual tags and counts how many times the tags were used 
-SELECT value, 
-	COUNT(value) AS tag_count
-FROM wish.dbo.summer_products
-CROSS APPLY STRING_SPLIT(tags, ',') AS tag_name
-GROUP BY value
-ORDER BY tag_count DESC;
-
+/*What are the most common product tags and how do they relate to sales?*/
 -- Divides, counts and compares the tags by revenue 
 SELECT value, 
 	COUNT(value) AS tag_count,
@@ -112,7 +100,7 @@ GROUP BY value
 ORDER BY total_revenue DESC;
 
 
-
+/*Is there a relationship between merchant rating and product quality as indicated by the badges?*/
 -- Merchant rating and number of badges
 SELECT merchant_rating, badges_count
 FROM wish.dbo.summer_products
@@ -151,12 +139,11 @@ FROM wish.dbo.summer_products
 WHERE badge_product_quality = 0 
 
 
-
+/*Do companies that sell to many countries have higher revenues?*/
 -- Average of countries_shipped_to
 -- Calculates the average of how many countries are shipped to per product
 SELECT AVG(countries_shipped_to) AS average_countries_shipped
 FROM wish.dbo.summer_products
-
 
 -- Count of products that ship to less than 29 countries 
 SELECT COUNT(countries_shipped_to) AS low_countries
@@ -239,7 +226,7 @@ AS medium_average
 WHERE countries_level = 'medium'
 
 
-
+/*Is there a relationship between merchant profile pictures and sales?*/
 SELECT AVG(units_sold) AS avg_units_sold
 FROM wish.dbo.summer_products
 WHERE merchant_has_profile_picture = 1;
