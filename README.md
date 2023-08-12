@@ -89,12 +89,12 @@ WHERE title_orig IS NOT NULL AND rating_count >= 800
 ORDER BY rating ASC;
 ```
 
-The average rating for the best-selling products and the least-selling products are provided below. A difference of 0.153 could be considered minor and might not signify a major difference in perceived quality. This observation makes me wonder how the top-selling products manage to achieve such high sales volumes despite the small difference in average ratings. To obtain these averages, I needed to create subqueries.
-* Best: 3.946
-* Worst: 3.793
+The average rating for the best-selling products and the least-selling products are provided below. A difference of 0.153 could be considered minor and might not signify a major difference in the customer's perceived quality. This observation makes me wonder how the top-selling products manage to achieve such high sales volumes despite the small difference in average ratings. To obtain these averages, I created subqueries.
+* Best-selling: 3.946
+* Least-selling: 3.793
 ```
--- Average rating for top 10 products
-SELECT AVG (rating) AS avg_top_rated_products
+-- Average rating for best selling 10 products
+SELECT AVG (rating) AS avg_best_selling_products
 FROM
 (
 SELECT TOP 10
@@ -107,10 +107,10 @@ FROM wish. dbo.summer_products
 WHERE title_orig IS NOT NULL
 ORDER BY units_sold DESC
 )
-AS avg_top_rated_products;
+AS avg_best_selling_products;
 
 -- Average rating for least selling products
-SELECT AVG (rating) AS avg_top_rated_products
+SELECT AVG (rating) AS avg_least_selling_products
 FROM
 (
 SELECT TOP 10
@@ -124,16 +124,16 @@ FROM wish. dbo.summer_products
 WHERE title_orig IS NOT NULL AND rating_count >= 800
 ORDER BY units_sold ASC
 )
-AS avg_top_rated_products
+AS avg_least_selling_products;
 ```
 
 ### Do products with ad boosts have higher sales compared to those without ad boosts?
-* There's no direct correlation at least with the data we have available
-*  Uses ads: $100,852.38
-* Don't use ads: $111,721.59
+After running these codes, it's clear that there isn't a direct link between ad boosts and sales. There's around a $11,000 difference, but given the overall revenue generated, this gap doesn't really seem all that significant. I used subqueries to calculate these. 
+* Average revenue for products that use ads: $100,852.38
+* Average revenue for products that don't use ads: $111,721.59
 ```
 -- Average revenue for products that use ads
-SELECT ROUND(AVG(total_revenue),2)
+SELECT ROUND(AVG(total_revenue),2) AS uses_ads
 FROM
 (
 SELECT
@@ -142,10 +142,10 @@ SELECT
 FROM wish. dbo.summer_products
 WHERE title_orig IS NOT NULL AND uses_ad_boosts = 1
 ) 
-AS avg_revenue_ads;
+AS avg_revenue_ads
 
 -- Average revenue for products that don't use ads
-SELECT ROUND(AVG(total_revenue),2)
+SELECT ROUND(AVG(total_revenue),2) AS no_ads
 FROM
 (
 SELECT
@@ -154,10 +154,11 @@ SELECT
 FROM wish. dbo.summer_products
 WHERE title_orig IS NOT NULL AND uses_ad_boosts = 0
 ) 
-AS avg_revenue_no_ads;
+AS avg_revenue_no_ads
 ```
+
 ### What are the most common product tags and how do they relate to sales?
-Top 10 used tags by revenue: 
+Below are the tags that brought in the most revenue. I counted the number of tags in each product and then added their revenues using a GROUP BY clause. 
 |value|	tag_count|total_revenue|
 |-----|----------|-------------|
 |Women's Fashion|1,301|$142,085,944|
@@ -172,15 +173,6 @@ Top 10 used tags by revenue:
 |sleeveless|570|$48,889,972|
 
 ```
--- Dividing tags 
--- Divides individual tags and counts how many times the tags were used 
-SELECT value, 
-	COUNT(value) AS tag_count
-FROM wish.dbo.summer_products
-CROSS APPLY STRING_SPLIT(tags, ',') AS tag_name
-GROUP BY value
-ORDER BY tag_count DESC;
-
 -- Divides, counts and compares the tags by revenue 
 SELECT value, 
 	COUNT(value) AS tag_count,
@@ -190,6 +182,7 @@ CROSS APPLY STRING_SPLIT(tags, ',') AS tag
 GROUP BY value
 ORDER BY total_revenue DESC;
 ```
+
 ###  Is there a relationship between merchant rating and product quality as indicated by the badges?
 * There's only 151 merchants with at least one badge
 * There's 1405 merchants without badges
