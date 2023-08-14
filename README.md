@@ -1,4 +1,5 @@
 # E-Commerce-Study
+[Click here](https://public.tableau.com/app/profile/angel.zapata2615/viz/E-CommerceDashboard_16827981312070/Dashboard1?publish=yes) for my Tableau Dashboard!
 
 ## Introduction: Exploring Product Sales and Merchant Metrics
 In the dynamic world of e-commerce, businesses thrive on understanding consumer behavior, product trends, and merchant performance to stay ahead in a competitive market. To shed light on these critical aspects, this data analysis project embarks on an exploration of a rich dataset. Our main objective is to tackle questions that explore different dimensions of product sales and merchant-related metrics.
@@ -223,18 +224,18 @@ SELECT AVG(merchant_rating) AS avg_rating
 FROM wish.dbo.summer_products
 WHERE badge_product_quality = 0;  
 ```
-Having the product quality badge seems to be associated with slightly higher average ratings for merchants, but even merchants without the badge maintain a relatively high average rating. This might suggest that other factors, such as customer service, shipping efficiency, and overall shopping experience, could also play a significant role in determining merchant ratings.
+Having a badge seems to be associated with slightly higher average ratings for merchants, but even merchants without a badge maintain a relatively high average rating. This might suggest that other factors, such as customer service, shipping efficiency, and overall shopping experience, could also play a significant role in determining merchant ratings.
 
 ###  Do companies that sell to many countries have higher revenues? 
 To address this question, my initial step was to calculate the average number of countries to which these products are shipped to. This served as a base measure for the subsequent analysis.
-* The average number of countries that these products are shipped to is **40**.
+* In average, these products are shipped to **40** different countries. 
 ```
 -- Average of countries_shipped_to
 -- Calculates the average of how many countries are shipped to per product
 SELECT AVG(countries_shipped_to) AS average_countries_shipped
 FROM wish.dbo.summer_products;
 ```
-Subsequently, I formulated a CASE expression to classify the products. They were labeled as 'low' for those shipped to fewer than 29 countries, 'average' for those shipped between 30 and 60 countries, and 'high' for those shipped to 61 countries or more. I then proceeded to create a subquery to determine the count within each individual category.
+Subsequently, I formulated a CASE expression to classify the products. They were labeled as 'low' for those shipped to fewer than 29 countries, 'average' for those shipped between 30 and 60 countries, and 'high' for those shipped to 61 countries or more. I then proceeded to create a subquery to determine the count within each individual category. I was interested if whether there was a noticeable difference between the 'low' and 'high' categories. 
 * Products that ship to less than 29 countries: 329
 * Products that ship to more than 61 countries: 98
 ```
@@ -270,6 +271,7 @@ FROM wish.dbo.summer_products
 AS low_average
 WHERE countries_level = 'high';
 ```
+I then sought to find the average revenue for each individual categories using subqueries. There was indeed a significant difference ($37,552) between products shipped to less than 29 countries and products shipped to 61 countries or more. 
 * Average revenue for products that ship to less than 29 countries: $40,592.47
 * Average revenue for products that ship to more than 61 countries: $78,144.74
 * Average revenue for products that ship to between 30 and 60 countries: $128,272.41
@@ -322,7 +324,6 @@ FROM wish.dbo.summer_products
 AS medium_average
 WHERE countries_level = 'medium';
 ```
-* There's a significant difference of revenues between products that ship to less than 29 countries and products that ship to more than 61 countries. 
 ### Is there a relationship between merchant profile pictures and sales?
 * There's a significant difference between products where merchants have profile pictures to those who don't
 * Products where merchants have a profile pictures sold a lot more units than those who don't have a profile picture
@@ -337,6 +338,6 @@ SELECT AVG(units_sold) AS avg_units_sold
 FROM wish.dbo.summer_products
 WHERE merchant_has_profile_picture = 0;
 ``` 
-Tableau Dashboard: https://public.tableau.com/app/profile/angel.zapata2615/viz/E-CommerceDashboard_16827981312070/Dashboard1?publish=yes
+
 
 
