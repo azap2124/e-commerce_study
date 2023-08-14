@@ -1,5 +1,8 @@
 # E-Commerce-Study
 [Click here](https://public.tableau.com/app/profile/angel.zapata2615/viz/E-CommerceDashboard_16827981312070/Dashboard1?publish=yes) for my Tableau Dashboard!
+<p align="center"> 
+<img width="644" alt="Screenshot 2023-08-14 142933" src="https://github.com/azap2124/e-commerce_study/assets/126125206/646477af-3528-4399-8078-17526b86e768">
+</p>
 
 ## Introduction: Exploring Product Sales and Merchant Metrics
 In the dynamic world of e-commerce, businesses thrive on understanding consumer behavior, product trends, and merchant performance to stay ahead in a competitive market. To shed light on these critical aspects, this data analysis project embarks on an exploration of a rich dataset. Our main objective is to tackle questions that explore different dimensions of product sales and merchant-related metrics.
