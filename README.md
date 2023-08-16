@@ -5,11 +5,9 @@
 </p>
 
 ## Introduction: Exploring Product Sales and Merchant Metrics
-In the dynamic world of e-commerce, businesses thrive on understanding consumer behavior, product trends, and merchant performance to stay ahead in a competitive market. To shed light on these critical aspects, this data analysis project embarks on an exploration of a rich dataset. Our main objective is to tackle questions that explore different dimensions of product sales and merchant-related metrics.
+In the dynamic world of e-commerce, businesses have to understand consumer behavior, product trends, and merchant performance to stay ahead in a competitive market. To shed light on these important aspects, this data analysis project embarks on an exploration of an extensive dataset. Our main objective is to tackle questions that explore different aspects of product sales and merchant-related metrics.
 
-In this data analysis project, we explore women's shopping preferences on the Wish platform. Our objective is to analyze the dataset to uncover valuable insights, shedding light on the e-commerce environment. Through an examination of product popularity, ad's impacts on sales, item's tags and sales relationship, and merchant ratings, we aim to provide a thorough understanding of the factors influencing product performance and merchant success. Additionally, we will investigate the potential correlation between companies selling to multiple countries and higher revenues. We will be using data analysis techniques to offer a data-driven perspective on women's online shopping trends.
-
-We aim to answer the following questions: 
+In this data analysis project, we explore women's shopping preferences on the Wish platform. We aim to answer the following questions: 
 1. What are the most popular products based on units sold? How do they compare in terms of price and rating?
 2. Do products with ad boosts have higher sales compared to those without ad boosts?
 3. What are the most common product tags and how do they relate to sales?
@@ -20,20 +18,21 @@ We aim to answer the following questions:
 ## Preparing our data
 The dataset I used can be found [here](https://data.world/jfreex/summer-products-and-sales-performance-in-e-commerce-on-wish). This data comes from the Wish platform. It incorporates data gathered from 2020. 
 
-This data covers information on various product attributes in the database. It includes details such as the original title of the product, its price, retail price, units sold, ad boosts usage, ratings, and rating counts. The dataset also contains information on badges associated with each product, product tags, color, size variation, countries shipped to, origin country, merchant rating count, merchant rating, whether the merchant has a profile picture, and unique product IDs. With this comprehensive dataset, we can gain valuable insights into product trends, merchant performance, and customer preferences in the online marketplace.
+This data covers information on various product attributes in the database. It includes details such as the original title of the product, its price, retail price, units sold, ad boosts usage, ratings, and rating counts. The dataset also contains information on badges associated with each product, product tags, color, size variation, countries shipped to, origin country, merchant rating count, merchant rating, whether the merchant has a profile picture, and unique product IDs. With this extensive dataset, we can gain valuable insights into product trends, merchant performance, and customer preferences in an online marketplace.
 
 I will be using Microsoft SQL Server Management Studio to analyze the data.
 
 ## Processing
 #### Cleaning the Data
-* Used Microsoft Excel to remove duplicates in the data, streamlining the dataset and ensuring that each record is unique.
+* Used Excel to remove duplicates in the data, streamlining the dataset and ensuring that each record is unique.
+* Removed columns that were irrelevant to this analysis, streamlining the dataset further and focusing only on the essential variables pertinent to our research objectives. 
 * For consistency, I converted all columns to the snake_case naming convention.
 * Converted data types when importing data to SQL Server to it's corresponding data types in the database schema. This ensures the data is accurately stored in the database, allowing for efficient querying.
-* Removed columns that were irrelevant to this analysis, streamlining the dataset further and focusing only on the essential variables pertinent to our research objectives. 
+
   
 ## Analysis
 ### What are the most popular products based on units sold? How do they compare in terms of price and rating?
-The following code retrieves the top 10 products from the "summer_products" table in the "wish" database based on the highest number of units sold. The products are then sorted in descending order based on the number of units sold, presenting the most popular products with their corresponding ratings and revenue generated. Here are the results along with their corresponding revenues: 
+The following code retrieves the top 10 products from the *summer_products* table in the *wish* database based on the highest number of units sold. The products are then sorted in descending order based on the number of units sold, presenting the highest selling products with their corresponding ratings and revenue generated. Here are the results along with their corresponding revenues: 
 1. Sleeveless Lace Crop Tops - $2,500,000
 2. Summer Stranger Things Tracksuit 2 Piece Outfit - $4,800,000
 3. ZANZEA Strand Retro Longtop Kleid Kaftan Dress - $700,000
@@ -58,7 +57,6 @@ FROM wish. dbo.summer_products
 WHERE title_orig IS NOT NULL
 ORDER BY units_sold DESC;
 ```
-
 Next, I aimed to analyze the lowest rated products. For a balanced comparison, I found the average rating count across all products. This allowed me to fairly compare the products based on consistent rating counts. The average rating count for all products is **897 reviews**. 
 ```
 -- Average rating count
@@ -66,7 +64,6 @@ Next, I aimed to analyze the lowest rated products. For a balanced comparison, I
 SELECT AVG(rating_count) AS avg_rating_count
 FROM wish. dbo.summer_products;
 ```
-
 Moving forward, I was curious to identify the top 10 products with the lowest ratings. To ensure a fair comparison, these products were required to have a minimum of 800 reviews and bear the lowest ratings. As we can see, three of them cater to plus-size women, while three products feature v-neck styles. These observations suggest potential areas for improvements. The products and their ratings are: 
 1. **Plus Size** Summer Cross Bandage Loose Dress - 2.93
 2. Summer Sleepwear Lace Night Dress - 2.97
@@ -92,7 +89,6 @@ FROM wish. dbo.summer_products
 WHERE title_orig IS NOT NULL AND rating_count >= 800
 ORDER BY rating ASC;
 ```
-
 The average rating for the best-selling products and the least-selling products are provided below. A difference of 0.153 could be considered minor and might not signify a major difference in the customer's perceived quality. This observation makes me wonder how the top-selling products manage to achieve such high sales volumes despite the small difference in average ratings. To obtain these averages, I created subqueries.
 * Best-selling: 3.946
 * Least-selling: 3.793
