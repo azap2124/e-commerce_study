@@ -341,6 +341,23 @@ SELECT AVG(units_sold) AS avg_units_sold
 FROM wish.dbo.summer_products
 WHERE merchant_has_profile_picture = 0;
 ``` 
+## Sharing my Results
+In the course of this data analysis project, I uncovered several noteworthy insights that provide valuable understanding into products and customer preferences on the Wish platform. Here's what the data revealed:
+### Low-Rated Products
+I identified the top 10 products with the lowest ratings, each with a minimum of 800 reviews. 
+* Variety in Categories: Among the lowest-rated products, three are tailored for plus-size women, while another 	three feature v-neck styles. This suggests potential opportunities for improvement in these specific segments.
+  
+### Customer Perception and Behavior
+1. **Average Ratings vs. Sales**: There was a slight difference of 0.153 in average ratings between best-selling and least-selling products which may not impact customer perceptions of quality. This raises questions about what factors contribute to the high sales volumes of top-rated products. Factors such as price, product relevance, visual appeal, and personal preferences also play a role. It's possible that the products' strengths in these other areas contribute to their high sales volumes.
+2. **Ad Boosts**: Surprisingly, the revenue difference of around $11,000 between products using and not using ad boosts doesn't seem substantial given the overall revenue generated. This prompts a closer examination of the effectiveness of ad boosts in driving revenue.
+3. **Tags**: Tags associated with 'Women's Fashion,' 'Women,' and 'Fashion' played a pivotal role in revenue generation. This insight can guide marketing efforts.
+4. **Trustworthiness of Profile Pictures**: The presence of profile pictures for merchants led to a significant difference in units sold compared to products without them. This suggests that customers are more inclined to trust products associated with merchants who have profile pictures.
 
+### Geographical Impact
+Examining revenue on shipping destinations per product revealed the following insights:
+* Products shipped to less than 29 Countries: Products shipped to fewer than 29 countries generated an average revenue of $40,592.47.
+* More than 61 Countries: Products shipped to over 61 countries yielded an average revenue of $78,144.74. The broader reach highlights the potential of catering to a global demand.
+* 30 to 60 Countries: Products sent to 30 to 60 countries achieved an average revenue of $128,272.41. 
+The geographical influence on revenue encourages us to consider adapting shipping strategies to more countries. This approach could uncover revenue potential and enhance market presence.
 
 
