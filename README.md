@@ -146,7 +146,7 @@ SELECT
 FROM wish. dbo.summer_products
 WHERE title_orig IS NOT NULL AND uses_ad_boosts = 1
 ) 
-AS avg_revenue_ads
+AS avg_revenue_ads;
 
 -- Average revenue for products that don't use ads
 SELECT ROUND(AVG(total_revenue),2) AS no_ads
@@ -158,7 +158,7 @@ SELECT
 FROM wish. dbo.summer_products
 WHERE title_orig IS NOT NULL AND uses_ad_boosts = 0
 ) 
-AS avg_revenue_no_ads
+AS avg_revenue_no_ads;
 ```
 
 ### What are the most common product tags and how do they relate to sales?
@@ -199,7 +199,7 @@ WHERE badges_count >= 1;
 -- Merchant rating for badge non-holders
 SELECT COUNT(merchant_rating) AS merchants_no_badges
 FROM wish.dbo.summer_products
-WHERE badges_count = 0
+WHERE badges_count = 0;
 ```
 * Average rating for badge holders: 4.168
 * Average rating for badge non-holders: 4.022
@@ -328,7 +328,7 @@ AS medium_average
 WHERE countries_level = 'medium';
 ```
 ### Is there a relationship between merchant profile pictures and sales?
-* There's a significant difference between products where merchants have profile pictures to those who don't
+There's a significant difference between products where merchants have profile pictures to those who don't. This could mean that customers perceive profiles with profile pictures as trustworthy and credible. 
 * Products where merchants have a profile pictures sold a lot more units than those who don't have a profile picture
 * Has profile picture sold on average: 7,617 units 
 * Does not have a profile picture sold on average: 3,824 units
