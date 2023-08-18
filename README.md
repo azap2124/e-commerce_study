@@ -136,8 +136,7 @@ After running these codes, it's clear that there isn't a direct link between ad 
 SELECT ROUND(AVG(total_revenue),2) AS uses_ads
 FROM
 (
-SELECT
-	title_orig,
+SELECT title_orig,
 	(units_sold*retail_price) AS total_revenue
 FROM wish. dbo.summer_products
 WHERE title_orig IS NOT NULL AND uses_ad_boosts = 1
@@ -148,8 +147,7 @@ AS avg_revenue_ads;
 SELECT ROUND(AVG(total_revenue),2) AS no_ads
 FROM
 (
-SELECT
-	title_orig,
+SELECT title_orig,
 	(units_sold*retail_price) AS total_revenue
 FROM wish. dbo.summer_products
 WHERE title_orig IS NOT NULL AND uses_ad_boosts = 0
